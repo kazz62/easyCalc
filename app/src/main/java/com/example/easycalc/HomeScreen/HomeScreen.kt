@@ -25,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -36,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.easycalc.R
 import com.example.easycalc.ui.theme.FieldBack
+import com.example.easycalc.ui.theme.FieldHint
 import com.example.easycalc.ui.theme.LightGreen
 
 @Composable
@@ -134,6 +134,7 @@ fun TextBar(
     var text by remember {
         mutableStateOf("")
     }
+
     var isHintDisplayed by remember {
         mutableStateOf(hint != "")
     }
@@ -166,19 +167,21 @@ fun TextBar(
                 textStyle = TextStyle(color = Color.Black, fontSize = 48.sp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 12.dp)
-                    .onFocusChanged {
-                        isHintDisplayed = !it.isFocused
+                    .padding(horizontal = 20.dp, vertical = 12.dp),
+                decorationBox = { innerTextField ->
+                    if (isHintDisplayed && text.isEmpty()) {
+                        Text(
+                            text = hint,
+                            maxLines = 1,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            fontSize = 48.sp,
+                            color = FieldHint
+                        )
                     }
+                    innerTextField()
+                },
             )
-            if (isHintDisplayed) {
-                Text(
-                    text = hint,
-                    color = Color.LightGray,
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp, vertical = 12.dp)
-                )
-            }
         }
     }
 }
