@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-private val repository : EasyCalcRepository
-): ViewModel() {
+    private val repository: EasyCalcRepository
+) : ViewModel() {
 }

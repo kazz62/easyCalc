@@ -9,8 +9,8 @@ import androidx.room.Query
 interface PlayerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertPlayer(data: Player)
+    fun insertPlayer(data: Player)
 
     @Query("SELECT * FROM player_table")
-     fun getAllPlayer(): List<Player>
+    fun getAllPlayer(): List<Player>
 }

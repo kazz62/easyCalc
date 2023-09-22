@@ -11,9 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -23,9 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -36,6 +35,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.easycalc.R
+import com.example.easycalc.ui.theme.FieldBack
+import com.example.easycalc.ui.theme.LightGreen
 
 @Composable
 fun HomeScreen(
@@ -51,9 +52,9 @@ fun HomeScreen(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(80.dp))
             Row {
-                // Image en haut
+
                 Image(
                     painter = painterResource(id = R.drawable.ic_logo),
                     contentDescription = "Logo de l'application",
@@ -61,38 +62,61 @@ fun HomeScreen(
                         .size(64.dp)
                         .alignByBaseline()
                 )
-                // Titre
+
                 Text(
                     text = "Mental Calc",
-                    style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White ),
+                    style = TextStyle(
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    ),
                     modifier = Modifier.padding(16.dp)
                 )
             }
+
+            Spacer(modifier = Modifier.height(80.dp))
 
             TextBar(
                 hint = "Nickname",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
+                    .background(
+                        FieldBack,
+                        shape = RoundedCornerShape(10.dp)
+                    )
             ) {
                 // viewmodel
             }
+
+            Spacer(modifier = Modifier.height(80.dp))
 
             Button(
                 onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .height(128.dp)
+                    .padding(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = LightGreen,
+                    contentColor = Color.White
+                )
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "Continue")
+                    Text(
+                        text = "Continue",
+                        style = TextStyle(
+                            fontSize = 24.sp
+                        )
+                    )
                     Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                        contentDescription = "Image à droite du bouton",
+                        painter = painterResource(id = R.drawable.arrow),
+                        contentDescription = "Image flèche",
                         modifier = Modifier
-                            .size(24.dp)
+                            .size(48.dp)
+                            .alignByBaseline()
                             .padding(start = 8.dp)
                     )
                 }
@@ -113,33 +137,48 @@ fun TextBar(
     var isHintDisplayed by remember {
         mutableStateOf(hint != "")
     }
-
     Box(modifier = modifier) {
-        BasicTextField(
-            value = text,
-            onValueChange = {
-                text = it
-                onSearch(it)
-            },
-            maxLines = 1,
-            singleLine = true,
-            textStyle = TextStyle(color = Color.Black),
-            modifier = Modifier
-                .fillMaxWidth()
-                .shadow(5.dp, CircleShape)
-                .background(Color.White, CircleShape)
-                .padding(horizontal = 20.dp, vertical = 12.dp)
-                .onFocusChanged {
-                    isHintDisplayed = !it.isFocused
-                }
-        )
-        if (isHintDisplayed) {
-            Text(
-                text = hint,
-                color = Color.LightGray,
+        Row {
+            Box(
                 modifier = Modifier
+                    .size(92.dp)
+                    .background(
+                        LightGreen,
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                    .alignByBaseline()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_person),
+                    contentDescription = "Image utilisateur",
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
+            }
+            BasicTextField(
+                value = text,
+                onValueChange = {
+                    text = it
+                    onSearch(it)
+                },
+                maxLines = 1,
+                singleLine = true,
+                textStyle = TextStyle(color = Color.Black, fontSize = 48.sp),
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 12.dp)
+                    .onFocusChanged {
+                        isHintDisplayed = !it.isFocused
+                    }
             )
+            if (isHintDisplayed) {
+                Text(
+                    text = hint,
+                    color = Color.LightGray,
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp, vertical = 12.dp)
+                )
+            }
         }
     }
 }

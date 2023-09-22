@@ -6,5 +6,5 @@ import javax.inject.Inject
 @ActivityScoped
 class EasyCalcRepository @Inject constructor(
 
-){
+) {
 }

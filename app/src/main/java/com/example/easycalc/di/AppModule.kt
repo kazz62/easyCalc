@@ -1,10 +1,10 @@
 package com.example.easycalc.di
+
 import com.example.easycalc.HomeScreen.HomeViewModel
 import com.example.easycalc.repository.EasyCalcRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
