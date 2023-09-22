@@ -10,5 +10,4 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repository: EasyCalcRepository
 ) : ViewModel() {
-    var isSearching = mutableStateOf(false)
 }

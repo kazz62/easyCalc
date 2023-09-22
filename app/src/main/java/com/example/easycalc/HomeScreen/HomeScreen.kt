@@ -43,6 +43,8 @@ fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    var playerName by remember { mutableStateOf("") }
+
     Surface(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize()
@@ -54,7 +56,6 @@ fun HomeScreen(
         ) {
             Spacer(modifier = Modifier.height(80.dp))
             Row {
-
                 Image(
                     painter = painterResource(id = R.drawable.ic_logo),
                     contentDescription = "Logo de l'application",
@@ -62,7 +63,6 @@ fun HomeScreen(
                         .size(64.dp)
                         .alignByBaseline()
                 )
-
                 Text(
                     text = "Mental Calc",
                     style = TextStyle(
@@ -84,15 +84,16 @@ fun HomeScreen(
                     .background(
                         FieldBack,
                         shape = RoundedCornerShape(10.dp)
-                    )
-            ) {
-                // viewmodel
-            }
+                    ),
+                onSearch = { nickname ->
+                    playerName = nickname
+                }
+            )
 
             Spacer(modifier = Modifier.height(80.dp))
 
             Button(
-                onClick = { },
+                onClick = { navController.navigate("menu_screen/$playerName") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(128.dp)
@@ -135,7 +136,7 @@ fun TextBar(
         mutableStateOf("")
     }
 
-    var isHintDisplayed by remember {
+    val isHintDisplayed by remember {
         mutableStateOf(hint != "")
     }
     Box(modifier = modifier) {
