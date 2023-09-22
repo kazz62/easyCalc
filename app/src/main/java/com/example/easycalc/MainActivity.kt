@@ -3,19 +3,18 @@ package com.example.easycalc
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.remember
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.easycalc.HomeScreen.HomeScreen
+import com.example.easycalc.menu.MenuScreen
 import com.example.easycalc.ui.theme.EasyCalcTheme
-import com.example.easycalc.ui.theme.HomeScreen.HomeScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,31 +25,30 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     startDestination = "home_screen"
                 ) {
+                    // Home
                     composable("home_screen") {
                         HomeScreen(navController = navController)
                     }
-                }
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
+
+                    // Menu
+                    composable("menu_screen/{playerName}",
+                        arguments = listOf(navArgument("playerName") {
+                            type = NavType.StringType
+                        }
+                        )
+                    ) {
+                        val playerName = remember {
+                            it.arguments?.getString("playerName")
+                        }
+                        MenuScreen(
+                            playerName = playerName ?: "",
+                            navController = navController
+                        )
+                    }
+
+                    // Against the watch
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    EasyCalcTheme {
-        Greeting("Android")
     }
 }
