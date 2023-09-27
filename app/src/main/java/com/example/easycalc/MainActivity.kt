@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.easycalc.HomeScreen.HomeScreen
+import com.example.easycalc.againstTheWatch.AgainstTheWatchScreen
 import com.example.easycalc.menu.MenuScreen
 import com.example.easycalc.ui.theme.EasyCalcTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +48,22 @@ class MainActivity : ComponentActivity() {
                     }
 
                     // Against the watch
+                    composable("against_the_watch/{playerName}",
+                        arguments = listOf(navArgument("playerName") {
+                            type = NavType.StringType
+                        }
+                        )
+                    ) {
+                        val playerName = remember {
+                            it.arguments?.getString("playerName")
+                        }
+                        AgainstTheWatchScreen(
+                            playerName = playerName ?: "",
+                            navController = navController
+                        )
+                    }
+
+                    // EasyCalc
                 }
             }
         }

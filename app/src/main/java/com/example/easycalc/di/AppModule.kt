@@ -1,6 +1,7 @@
 package com.example.easycalc.di
 
 import com.example.easycalc.HomeScreen.HomeViewModel
+import com.example.easycalc.againstTheWatch.AgainstTheWatchViewModel
 import com.example.easycalc.menu.MenuViewModel
 import com.example.easycalc.repository.EasyCalcRepository
 import dagger.Module
@@ -27,5 +28,9 @@ object AppModule {
     @Provides
     fun provideMenuViewModel(): MenuViewModel {
         return MenuViewModel()
+    }
+    @Provides
+    fun provideAgainstTheWatchViewModel(): AgainstTheWatchViewModel {
+        return AgainstTheWatchViewModel()
     }
 }
