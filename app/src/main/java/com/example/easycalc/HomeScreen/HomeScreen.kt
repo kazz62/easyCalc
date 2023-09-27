@@ -93,7 +93,9 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(80.dp))
 
             Button(
-                onClick = { navController.navigate("menu_screen/$playerName") },
+                onClick = {
+                    if(!playerName.isEmpty())
+                        navController.navigate("menu_screen/$playerName") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(128.dp)
