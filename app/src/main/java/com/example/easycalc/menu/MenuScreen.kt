@@ -45,10 +45,10 @@ fun MenuScreen(
     ) {
 
         val triplets = listOf(
-            Triple(R.drawable.ic_watch, "Against the watch", ""),
-            Triple(R.drawable.ic_calc, "Easy calc", ""),
-            Triple(R.drawable.ic_medal, "Hard calc", ""),
-            Triple(R.drawable.ic_mask, "Hell calc", "")
+            Triple(R.drawable.ic_watch, "Against the watch", "home_screen"),
+            Triple(R.drawable.ic_calc, "Easy calc", "home_screen"),
+            Triple(R.drawable.ic_medal, "Hard calc", "home_screen"),
+            Triple(R.drawable.ic_mask, "Hell calc", "home_screen")
         )
 
         Column(
